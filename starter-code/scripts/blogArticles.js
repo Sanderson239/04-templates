@@ -1,5 +1,13 @@
 var ourLocalData = [
   {
+    title: '',
+    'category': '---- choose a category ----',
+    'author': '---- choose an author ----',
+    authorUrl: '',
+    publishedOn: '',
+    body: ''
+  },
+  {
     title:       'Bacon Ipsum',
     category:    'food',
     author:      'Kevin Bacon',

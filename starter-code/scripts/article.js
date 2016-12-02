@@ -1,13 +1,26 @@
 var articles = [];
+var authorDropdownArray = [];
 
 function Article (opts) {
-  this.author = opts.author;
-  this.authorUrl = opts.authorUrl;
   this.title = opts.title;
   this.category = opts.category;
-  this.body = opts.body;
+  this.author = opts.author;
+  this.authorUrl = opts.authorUrl;
   this.publishedOn = opts.publishedOn;
+  this.body = opts.body;
 }
+
+function AuthorNameDropdown (opts) {
+  this.author = opts.author;
+}
+
+AuthorNameDropdown.prototype.toHtml = function() {
+  var $authorFilterTemplateScript = $('#author-filter-template').html();
+  var theFilterTemplate = Handlebars.compile($authorFilterTemplateScript);
+  // var theCompiledHtml = theFilterTemplate(ourLocalData[i]);
+  // $('#author-filter').html(theCompiledHtml);
+  return theFilterTemplate(this);
+};
 
 Article.prototype.toHtml = function() {
   // DONE: If your template will use properties that aren't on the object yet, add them.
@@ -36,4 +49,12 @@ ourLocalData.forEach(function(ele) {
 
 articles.forEach(function(a){
   $('#articles').append(a.toHtml());
+});
+
+ourLocalData.forEach(function(ele) {
+  authorDropdownArray.push(new AuthorNameDropdown(ele));
+});
+
+authorDropdownArray.forEach(function(a){
+  $('#author-filter').append(a.toHtml());
 });
