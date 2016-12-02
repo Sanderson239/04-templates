@@ -1,5 +1,6 @@
 var articles = [];
 var authorDropdownArray = [];
+var categoryDropdownArray = [];
 
 function Article (opts) {
   this.title = opts.title;
@@ -14,11 +15,21 @@ function AuthorNameDropdown (opts) {
   this.author = opts.author;
 }
 
+function CategoryDropdown (opts) {
+  this.category = opts.category;
+}
+
 AuthorNameDropdown.prototype.toHtml = function() {
   var $authorFilterTemplateScript = $('#author-filter-template').html();
   var theFilterTemplate = Handlebars.compile($authorFilterTemplateScript);
   // var theCompiledHtml = theFilterTemplate(ourLocalData[i]);
   // $('#author-filter').html(theCompiledHtml);
+  return theFilterTemplate(this);
+};
+
+CategoryDropdown.prototype.toHtml = function() {
+  var $categoryFilterTemplateScript = $('#category-filter-template').html();
+  var theFilterTemplate = Handlebars.compile($categoryFilterTemplateScript);
   return theFilterTemplate(this);
 };
 
@@ -57,4 +68,12 @@ ourLocalData.forEach(function(ele) {
 
 authorDropdownArray.forEach(function(a){
   $('#author-filter').append(a.toHtml());
+});
+
+ourLocalData.forEach(function(ele) {
+  categoryDropdownArray.push(new CategoryDropdown(ele));
+});
+
+categoryDropdownArray.forEach(function(a){
+  $('#category-filter').append(a.toHtml());
 });
